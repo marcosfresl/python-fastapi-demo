@@ -15,9 +15,11 @@ RUN addgroup -g ${GROUP_ID} demo \
 COPY --chown=demo . /app/
 
 #install depedencies
-RUN apk add --no-cache --virtual .build-deps gcc libc-dev make \
+RUN apk add --no-cache --virtual .build-deps \
+        gcc libc-dev make musl-dev python3-dev libffi-dev \
     && pip install --no-cache-dir -r requirements.txt \
-    && apk del .build-deps gcc libc-dev make
+    && apk del .build-deps
+
 
 USER demo
 
